@@ -16,8 +16,8 @@ public class angulo extends inicio{
 		g.drawLine((int)x1, (int)y1, (int)x2, (int)y2);
 	}
 	public void angle(double xVel, double yVel) {
-		x2 = x1 + 50*xVel;
-		y2 = y1 + 50*yVel;
+		x2 = x1 + 30*xVel;
+		y2 = y1 + 30*yVel;
 	}
 	public void lineaenplataforma( boolean derecha, boolean izquierda) {
 		if(izquierda) {

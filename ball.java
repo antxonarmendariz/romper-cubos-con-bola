@@ -3,7 +3,7 @@ import java.awt.Graphics;
 
 public class ball extends inicio implements centrodecontrol{
 
-	private double x, y;
+	private double x, y, xdif;
 	private double xVel, yVel;
 	
 	public ball() {
@@ -34,8 +34,8 @@ public class ball extends inicio implements centrodecontrol{
 		
 	}
 	public void angle(double i) {
-		xVel = Math.cos(i/100)*3;
-		yVel = Math.sin(i/100)*3;
+		xVel = Math.cos(i/100)*5;
+		yVel = Math.sin(i/100)*5;
 		if(yVel > 0 ) {
 			yVel = -yVel;
 		}
@@ -54,10 +54,18 @@ public class ball extends inicio implements centrodecontrol{
 	}
 	public void colisionbarra(int xbarra) {
 		if(y > 821 && y < 830 ) {
-			if(x > xbarra && x < xbarra + 150) {
-				yVel = -yVel;
+			if(x > xbarra-20 && x < xbarra + 140) {
+				xdif = x - xbarra;
+				xdif = xdif/150;
+				xdif = xdif*180;
+				xVel = Math.cos(xdif)*5;
+				yVel = Math.sin(xdif)*5;
+				if(yVel > 0 ) {
+					yVel = -yVel;
+				}
 			}
 		}
+		
 	}
 	public double getxVel(){
 		return xVel;
@@ -65,21 +73,34 @@ public class ball extends inicio implements centrodecontrol{
 	public double getyVel(){
 		return yVel;
 	}
-	public void colisionbloque(int xbloque, int ybloque) {
-		if(y > ybloque+45 && y < ybloque+55) {
-			if(x > xbloque && x < xbloque + 50) {
-				yVel = -yVel;
+	public int colisionbloque(int xbloque, int ybloque, int vida) {
+		int k = 0;
+		if(vida != 0) {
+			if(y > ybloque+45 && y < ybloque+55) {
+				if(x > xbloque && x < xbloque + 50) {
+					yVel = -yVel;
+					k = 1;
+				}
+			}
+			if(x > xbloque+45 && x < xbloque+55) {
+				if(y > ybloque && y < ybloque + 65) {
+					xVel = -xVel;
+					k = 1;
+				}
+			}
+			if(x > xbloque-5 && x < xbloque+5) {
+				if(y > ybloque && y < ybloque + 65) {
+					xVel = -xVel;
+					k = 1;
+				}
+			}
+			if(y > ybloque-25 && y < ybloque-15) {
+				if(x > xbloque && x < xbloque + 50) {
+					yVel = -yVel;
+					k = 1;
+				}
 			}
 		}
-		if(x > xbloque+45 && x < xbloque+55) {
-			if(y > ybloque && y < ybloque + 50) {
-				xVel = -xVel;
-			}
-		}
-		if(x > xbloque-5 && x < xbloque+5) {
-			if(y > ybloque && y < ybloque + 50) {
-				xVel = -xVel;
-			}
-		}
+		return k;
 	}
 }

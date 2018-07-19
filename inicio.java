@@ -12,12 +12,13 @@ public class inicio extends Applet implements Runnable, KeyListener{
 	private static boolean iniciar;
 	protected plataform barra;
 	private ball pelota;
-	private static int i = 0, h = 0;
+	private static int i = 0, h = 0, k = 0;
 	private angulo anglee;
 	private double xVel, yVel;
 	private boolean izquierda, derecha;
 	private bloques block;
-	private int xblock, yblock, xbarra, ybarra, nbloques = 3;
+	private int xblock, yblock, xbarra, ybarra, vida;
+	protected int  nbloques = 72;
 	
 	public void init() {
 		this.resize(wide, high);
@@ -29,6 +30,7 @@ public class inicio extends Applet implements Runnable, KeyListener{
 		for(int j = 0; j < 2; j++) {
 			block = new bloques();
 		}
+		block.blockvidainicio();
 		
 		Thread hilillo = new Thread(this);
 		hilillo.start();
@@ -44,7 +46,8 @@ public class inicio extends Applet implements Runnable, KeyListener{
 			for(int j = 0; j < nbloques; j++) {
 				xblock = block.getx(j);
 				yblock = block.gety(j);
-				block.draw(g, xblock, yblock);
+				vida = block.getvida(j);
+				block.draw(g, xblock, yblock, vida);
 			}
 			if(h == 0) {
 				anglee.drawangle(g);
@@ -60,9 +63,14 @@ public class inicio extends Applet implements Runnable, KeyListener{
 				xbarra = barra.getx();
 				pelota.colisionbarra(xbarra);
 				for(int p = 0; p < nbloques; p++) {
+					k = 0;
 					xblock = block.getx(p);
 					yblock = block.gety(p);
-					pelota.colisionbloque(xblock, yblock);
+					vida = block.getvida(p);
+					k = pelota.colisionbloque(xblock, yblock, vida);
+					if(k == 1) {
+						block.blockvida(p);
+					}
 				}
 				
 				h = 1;	
