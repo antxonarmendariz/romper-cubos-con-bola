@@ -19,9 +19,9 @@ public class plataform extends inicio implements centrodecontrol{
 
 	public void move() {
 		if(izquierda) {
-			x -= 4;
+			x -= 6;
 		}else if(derecha){
-			x += 4;
+			x += 6;
 		}
 		if(x > wide-150) {
 			x = wide-150;

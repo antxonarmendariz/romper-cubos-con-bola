@@ -8,14 +8,14 @@ public class ball extends inicio implements centrodecontrol{
 	
 	public ball() {
 		x = wide/2 -10;
-		y = 820;
+		y = 830;
 		xVel = 1;
 		yVel = -2;
 	}
 	
 	public void draw(Graphics g) {
 		g.setColor(Color.yellow);
-		g.fillOval((int)x, (int)y, 30, 30);
+		g.fillOval((int)x, (int)y, 20, 20);
 	}
 
 	public void move() {
@@ -42,9 +42,9 @@ public class ball extends inicio implements centrodecontrol{
 	}
 	public void pelotaenplataforma( boolean derecha, boolean izquierda) {
 		if(izquierda) {
-			x -= 4;
+			x -= 6;
 		}else if(derecha){
-			x += 4;
+			x += 6;
 		}
 		if(x > wide-90) {
 			x = wide-90;
@@ -53,15 +53,18 @@ public class ball extends inicio implements centrodecontrol{
 		}
 	}
 	public void colisionbarra(int xbarra) {
-		if(y > 821 && y < 830 ) {
+		if(y > 831 && y < 836 ) {
 			if(x > xbarra-20 && x < xbarra + 140) {
 				xdif = x - xbarra;
 				xdif = xdif/150;
 				xdif = xdif*180;
-				xVel = Math.cos(xdif)*5;
+				xVel = -Math.cos(xdif)*5;
 				yVel = Math.sin(xdif)*5;
 				if(yVel > 0 ) {
 					yVel = -yVel;
+				}
+				if(xdif > 90) {
+					xVel = -xVel;
 				}
 			}
 		}
@@ -76,31 +79,31 @@ public class ball extends inicio implements centrodecontrol{
 	public int colisionbloque(int xbloque, int ybloque, int vida) {
 		int k = 0;
 		if(vida != 0) {
-			if(y > ybloque+45 && y < ybloque+55) {
-				if(x > xbloque && x < xbloque + 50) {
+			if(x >= xbloque && x <= xbloque+5) {
+				if(y >= ybloque && y <= ybloque + 50) {
+					xVel = -xVel;
+					k = 1;
+				}
+			}else if(x >= xbloque+45 && x <= xbloque+50) {
+				if(y >= ybloque && y <= ybloque + 50) {
+					xVel = -xVel;
+					k = 1;
+				}
+			}else if(y >= ybloque+45 && y <= ybloque+50) {
+				if(x >= xbloque && x <= xbloque + 50) {
 					yVel = -yVel;
 					k = 1;
 				}
-			}
-			if(x > xbloque+45 && x < xbloque+55) {
-				if(y > ybloque && y < ybloque + 65) {
-					xVel = -xVel;
-					k = 1;
-				}
-			}
-			if(x > xbloque-5 && x < xbloque+5) {
-				if(y > ybloque && y < ybloque + 65) {
-					xVel = -xVel;
-					k = 1;
-				}
-			}
-			if(y > ybloque-25 && y < ybloque-15) {
-				if(x > xbloque && x < xbloque + 50) {
+			}else if(y >= ybloque && y <= ybloque+5) {
+				if(x >= xbloque && x <= xbloque + 50) {
 					yVel = -yVel;
 					k = 1;
 				}
 			}
 		}
 		return k;
+	}
+	public int gety() {
+		return (int) y;
 	}
 }

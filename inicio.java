@@ -18,7 +18,7 @@ public class inicio extends Applet implements Runnable, KeyListener{
 	private boolean izquierda, derecha;
 	private bloques block;
 	private int xblock, yblock, xbarra, ybarra, vida;
-	protected int  nbloques = 72;
+	protected int  nbloques = 73;
 	
 	public void init() {
 		this.resize(wide, high);
@@ -38,8 +38,9 @@ public class inicio extends Applet implements Runnable, KeyListener{
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, wide, high);
-		if(false) {
-			
+		if(pelota.gety() > 1000) {
+			g.setColor(Color.red);
+			g.drawString("GAME OVER", 390, 500);
 		}else {
 			barra.draw(g);
 			pelota.draw(g);

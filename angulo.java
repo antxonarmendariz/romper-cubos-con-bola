@@ -7,7 +7,7 @@ public class angulo extends inicio{
 	public angulo() {
 		x1 = wide/2;
 		x2 = x1 + 150;
-		y1 = 820;
+		y1 = 830;
 		y2 = y1;
 	}
 	
@@ -21,9 +21,9 @@ public class angulo extends inicio{
 	}
 	public void lineaenplataforma( boolean derecha, boolean izquierda) {
 		if(izquierda) {
-			x1 -= 4;
+			x1 -= 6;
 		}else if(derecha){
-			x1 += 4;
+			x1 += 6;
 		}
 		if(x1 > wide-75) {
 			x1 = wide-75;
